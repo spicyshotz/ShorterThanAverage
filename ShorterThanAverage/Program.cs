@@ -1,8 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-//builder.Services.AddOpenApi(); // dont think that this is needed since im not mapping openapi anymore
+builder.Services.AddOpenApi(); // it was needed, stoopid
 
 // why is this not included with dotnet 9 :sad:
 builder.Services.AddSwaggerGen();
@@ -18,28 +17,23 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+// shortening endpoint
+app.MapPost("/api/shorten/", (string URL) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    var shortened = new
+    {
+        URL,
+        shortURL = "Hellooooooo"
+    };
+    return Results.Ok(shortened);
 })
-.WithName("GetWeatherForecast");
+.WithName("ShortenURL");
 
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+// redirecting to full URL endpoint
+app.MapGet("{short_code}", (string short_code) =>
 {
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+    var originalURL = "https://learn.microsoft.com/en-us/aspnet/web-api/overview/older-versions/build-restful-apis-with-aspnet-web-api"; 
+    return Results.Redirect(originalURL);
+})
+.WithName("RedirectToFullURL");
+app.Run();
