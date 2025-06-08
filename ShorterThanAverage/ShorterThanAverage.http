@@ -1,0 +1,6 @@
+@ShorterThanAverage_HostAddress = http://localhost:5196
+
+GET {{ShorterThanAverage_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
