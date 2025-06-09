@@ -30,3 +30,17 @@
 /Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/obj/Debug/net9.0/ShorterThanAverage.genruntimeconfig.cache
 /Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/obj/Debug/net9.0/ref/ShorterThanAverage.dll
 /Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/obj/Debug/net9.0/ShorterThanAverage.sourcelink.json
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.Logging.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Npgsql.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
