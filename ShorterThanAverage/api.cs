@@ -1,11 +1,13 @@
+using Npgsql;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddDbContext<YourDatabaseContextClassName>(options =>
-//options.UseNpgsql(Configuration.GetConnectionString("YourDatabaseContextStringNameFromAppsettings")));
-// https://stackoverflow.com/questions/70473009/how-to-make-database-connectivity-in-asp-net-core-with-postgresql
+var connectionString = builder.Configuration.GetConnectionString("PostgreDB");
+builder.Services.AddScoped((provider) => new NpgsqlConnection(connectionString));
+builder.Services.AddScoped<UrlDatabase>();
 
 var app = builder.Build();
 
@@ -18,7 +20,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // shortening endpoint
-app.MapPost("/api/shorten/", (string request, string? vanity) =>
+app.MapPost("/api/shorten/", async (string request, string? vanity, UrlDatabase db) =>
 {
     // check if full url exists in DB, return the shortened version thats already in the DB
     // if not:
@@ -26,14 +28,20 @@ app.MapPost("/api/shorten/", (string request, string? vanity) =>
     // check if generated URL is unique (keep checking until it is unique) :^)
     //if not:
     // UrlObject.RegenerateShortenedUrl(); // will use if i have time.
+    await db.InsertUrlAsync(UrlObject.FullUrl, UrlObject.ShortenedUrl);
     return Results.Ok(UrlObject.ShortenedUrl);
 })
 .WithName("ShortenURL");
 
 // redirecting to full URL endpoint
-app.MapGet("{short_code}", (string short_code) =>
+app.MapGet("{short_code}", async (string short_code, UrlDatabase db) =>
 {
-    var originalURL = "https://learn.microsoft.com/en-us/aspnet/web-api/overview/older-versions/build-restful-apis-with-aspnet-web-api";
+    var originalURL = await db.GetFullUrlAsync(short_code);
+    if (originalURL is null)
+    {
+        return Results.NotFound();
+
+    }
     return Results.Redirect(originalURL);
 })
 .WithName("RedirectToFullURL");

@@ -1158,6 +1158,7 @@
     "net9.0": [
       "Base62-Net >= 1.2.157201",
       "Microsoft.AspNetCore.OpenApi >= 9.0.5",
+      "Npgsql >= 9.0.3",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4",
       "Swashbuckle.AspNetCore >= 8.1.4"
     ]
@@ -1212,6 +1213,10 @@
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[9.0.5, )"
+          },
+          "Npgsql": {
+            "target": "Package",
+            "version": "[9.0.3, )"
           },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
