@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "nKu+mUyDDVg=",
+  "dgSpecHash": "7y4ZKgaW+nU=",
   "success": true,
   "projectFilePath": "/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/ShorterThanAverage.csproj",
   "expectedPackageFiles": [
+    "/Users/itaya/.nuget/packages/base62-net/1.2.157201/base62-net.1.2.157201.nupkg.sha512",
     "/Users/itaya/.nuget/packages/microsoft.aspnetcore.openapi/9.0.5/microsoft.aspnetcore.openapi.9.0.5.nupkg.sha512",
     "/Users/itaya/.nuget/packages/microsoft.entityframeworkcore/9.0.1/microsoft.entityframeworkcore.9.0.1.nupkg.sha512",
     "/Users/itaya/.nuget/packages/microsoft.entityframeworkcore.abstractions/9.0.1/microsoft.entityframeworkcore.abstractions.9.0.1.nupkg.sha512",

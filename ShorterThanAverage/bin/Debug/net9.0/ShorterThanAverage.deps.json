@@ -8,12 +8,21 @@
     ".NETCoreApp,Version=v9.0": {
       "ShorterThanAverage/1.0.0": {
         "dependencies": {
+          "Base62-Net": "1.2.157201",
           "Microsoft.AspNetCore.OpenApi": "9.0.5",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
           "Swashbuckle.AspNetCore": "8.1.4"
         },
         "runtime": {
           "ShorterThanAverage.dll": {}
+        }
+      },
+      "Base62-Net/1.2.157201": {
+        "runtime": {
+          "lib/netstandard2.0/Base62.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.200.20.57201"
+          }
         }
       },
       "Microsoft.AspNetCore.OpenApi/9.0.5": {
@@ -242,6 +251,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Base62-Net/1.2.157201": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PT956Yciz8tDURLoItPcsWGmXgHLSd+ezkO1Hx+1nfUcv407sNkN3RKOJr0Yas76rC8UzSmNL0OIBuTh8CompA==",
+      "path": "base62-net/1.2.157201",
+      "hashPath": "base62-net.1.2.157201.nupkg.sha512"
     },
     "Microsoft.AspNetCore.OpenApi/9.0.5": {
       "type": "package",

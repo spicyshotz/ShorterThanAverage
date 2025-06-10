@@ -1,6 +1,7 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using Base62;
 
 public class URL
 {
@@ -20,15 +21,17 @@ public class URL
 
     private string GenerateShortenedUrl(string url)
     {
-        using (var sha256 = SHA256.Create()) // use md5 instead!! fasterr :^)
+        using (var md5 = MD5.Create())
         {
-            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(url));
-            var sb = new StringBuilder(); // use base62 encoding instead!! also faster (i think) and will also do uppercase letters
-            for (int i = 0; i < 3; i++)
-            {
-                sb.Append(hash[i].ToString("x2"));
-            }
-            return sb.ToString();
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(url));
+            var encoded = hash.ToBase62();
+            return encoded.Substring(0, 6);
         }
+    }
+
+    public string RegenerateShortenedUrl()
+    {
+        var encoded = this.ShortenedUrl.ToBase62();
+        return encoded.Substring(0, 6);
     }
 }

@@ -44,3 +44,4 @@
 /Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll
 /Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Npgsql.dll
 /Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/itaya/Documents/GitHub/ShorterThanAverage/ShorterThanAverage/bin/Debug/net9.0/Base62.dll

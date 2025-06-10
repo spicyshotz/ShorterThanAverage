@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net9.0": {
+      "Base62-Net/1.2.157201": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Base62.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Base62.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/9.0.5": {
         "type": "package",
         "dependencies": {
@@ -377,6 +390,20 @@
     }
   },
   "libraries": {
+    "Base62-Net/1.2.157201": {
+      "sha512": "PT956Yciz8tDURLoItPcsWGmXgHLSd+ezkO1Hx+1nfUcv407sNkN3RKOJr0Yas76rC8UzSmNL0OIBuTh8CompA==",
+      "type": "package",
+      "path": "base62-net/1.2.157201",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "base62-net.1.2.157201.nupkg.sha512",
+        "base62-net.nuspec",
+        "lib/netstandard2.0/Base62.dll",
+        "lib/netstandard2.0/Base62.xml"
+      ]
+    },
     "Microsoft.AspNetCore.OpenApi/9.0.5": {
       "sha512": "yZLOciYlpaOO/mHPOpgeSZTv8Lc7fOOVX40eWJJoGs/S9Ny9CymDuKKQofGE9stXGGM9EEnnuPeq0fhR8kdFfg==",
       "type": "package",
@@ -1129,6 +1156,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "Base62-Net >= 1.2.157201",
       "Microsoft.AspNetCore.OpenApi >= 9.0.5",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4",
       "Swashbuckle.AspNetCore >= 8.1.4"
@@ -1177,6 +1205,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "Base62-Net": {
+            "target": "Package",
+            "version": "[1.2.157201, )"
+          },
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[9.0.5, )"
