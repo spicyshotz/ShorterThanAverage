@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,13 +23,19 @@ app.UseHttpsRedirection();
 // shortening endpoint
 app.MapPost("/api/shorten/", async (string request, string? vanity, UrlDatabase db) =>
 {
+    if (!string.IsNullOrEmpty(vanity) && !Regex.IsMatch(vanity, @"^[a-zA-Z0-9]+$"))
+    {
+        return Results.BadRequest("Vanity URL must contain only a-z, A-Z, or 0-9 characters.");
+    }
     // check if full url exists in DB, return the shortened version thats already in the DB
     // if not:
     URL UrlObject = new URL(request, vanity); // vanity can be null, as i check it in URL class and generate a shorteneted URL if a vanity one is not provided.
-    // check if generated URL is unique (keep checking until it is unique) :^)
-    //if not:
-    // UrlObject.RegenerateShortenedUrl(); // will use if i have time.
-    await db.InsertUrlAsync(UrlObject.FullUrl, UrlObject.ShortenedUrl);
+    var dbResult = await db.InsertUrlAsync(UrlObject.FullUrl, UrlObject.ShortenedUrl);
+    while (dbResult.url != UrlObject.FullUrl)
+    {
+        UrlObject.RegenerateShortenedUrl(); // also randomizes vanity URL, this is expected behavior for now
+        dbResult = await db.InsertUrlAsync(UrlObject.FullUrl, UrlObject.ShortenedUrl);
+    }
     return Results.Ok(UrlObject.ShortenedUrl);
 })
 .WithName("ShortenURL");

@@ -10,15 +10,30 @@ public class UrlDatabase
         _connection = connection;
     }
 
-    public async Task InsertUrlAsync(string fullUrl, string shortUrl)
+    public async Task<(string url, string shortUrl)> InsertUrlAsync(string fullUrl, string shortUrl)
     {
         await _connection.OpenAsync();
         try
         {
-            using var add = new NpgsqlCommand("INSERT INTO shortener.\"shortenerTable\" (\"URL\", \"ShortURL\") VALUES (@URL, @ShortURL)", _connection);
-            add.Parameters.AddWithValue("URL", fullUrl);
-            add.Parameters.AddWithValue("ShortURL", shortUrl);
-            await add.ExecuteNonQueryAsync();
+            using var cmd = new NpgsqlCommand(@"
+            INSERT INTO shortener.""shortenerTable"" (""URL"", ""ShortURL"")
+            VALUES (@URL, @ShortURL)
+            ON CONFLICT (""ShortURL"")
+            DO UPDATE SET ""ShortURL"" = EXCLUDED.""ShortURL""
+            RETURNING *;
+            ", _connection);
+            cmd.Parameters.AddWithValue("URL", fullUrl);
+            cmd.Parameters.AddWithValue("ShortURL", shortUrl);
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            if (reader.Read())
+            {
+                string url = reader.GetString(reader.GetOrdinal("URL"));
+                string shortenedUrl = reader.GetString(reader.GetOrdinal("ShortURL"));
+
+                return (url, shortenedUrl);
+            }
+            return (fullUrl, shortUrl);
         }
         finally
         {
@@ -31,9 +46,9 @@ public class UrlDatabase
         await _connection.OpenAsync();
         try
         {
-            using var get = new NpgsqlCommand("SELECT \"URL\" FROM shortener.\"shortenerTable\" WHERE \"ShortURL\" = @ShortURL", _connection);
-            get.Parameters.AddWithValue("ShortURL", shortUrl);
-            var result = await get.ExecuteScalarAsync();
+            using var cmd = new NpgsqlCommand("SELECT \"URL\" FROM shortener.\"shortenerTable\" WHERE \"ShortURL\" = @ShortURL", _connection);
+            cmd.Parameters.AddWithValue("ShortURL", shortUrl);
+            var result = await cmd.ExecuteScalarAsync();
             return result as string;
         }
         finally

@@ -29,9 +29,9 @@ public class URL
         }
     }
 
-    public string RegenerateShortenedUrl()
+    public void RegenerateShortenedUrl()
     {
         var encoded = this.ShortenedUrl.ToBase62();
-        return encoded.Substring(0, 6);
+        this.ShortenedUrl = encoded.Substring(0, 6);
     }
 }
