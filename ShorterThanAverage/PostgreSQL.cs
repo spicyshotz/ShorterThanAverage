@@ -56,4 +56,28 @@ public class UrlDatabase
             await _connection.CloseAsync();
         }
     }
+
+    public async Task<(string? url, string? shortUrl)> CheckUrlExistanceAsync(string fullUrl)
+    {
+        await _connection.OpenAsync();
+        try
+        {
+            using var cmd = new NpgsqlCommand("SELECT * FROM shortener.\"shortenerTable\" WHERE \"URL\" = @URL", _connection);
+            cmd.Parameters.AddWithValue("URL", fullUrl);
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            if (reader.Read())
+            {
+                string url = reader.GetString(reader.GetOrdinal("URL"));
+                string shortenedUrl = reader.GetString(reader.GetOrdinal("ShortURL"));
+
+                return (url, shortenedUrl);
+            }
+            return (null, null);
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+    }
 }

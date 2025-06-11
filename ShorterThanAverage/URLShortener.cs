@@ -13,7 +13,7 @@ public class URL
         set => _shortenedUrl = string.IsNullOrWhiteSpace(value) ? GenerateShortenedUrl(FullUrl) : value;
     }
 
-    public URL(string fullUrl, string shortenedUrl = null)
+    public URL(string fullUrl, string? shortenedUrl = null)
     {
         FullUrl = fullUrl;
         ShortenedUrl = shortenedUrl;

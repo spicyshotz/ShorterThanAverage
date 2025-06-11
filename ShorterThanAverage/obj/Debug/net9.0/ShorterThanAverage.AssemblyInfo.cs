@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShorterThanAverage")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b73946cfe9451e912f846e5c5d4c172791e0892")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dab4b42b94d8cb3a508cafc312e5e125ec03b49c")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShorterThanAverage")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShorterThanAverage")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

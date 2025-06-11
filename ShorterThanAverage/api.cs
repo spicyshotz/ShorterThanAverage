@@ -27,13 +27,23 @@ app.MapPost("/api/shorten/", async (string request, string? vanity, UrlDatabase 
     {
         return Results.BadRequest("Vanity URL must contain only a-z, A-Z, or 0-9 characters.");
     }
-    // check if full url exists in DB, return the shortened version thats already in the DB
-    // if not:
+
+    var dbResult = await db.CheckUrlExistanceAsync(request);
+    if (dbResult.url is not null)
+    {
+        return Results.Ok(dbResult.shortUrl);
+    }
+
     URL UrlObject = new URL(request, vanity); // vanity can be null, as i check it in URL class and generate a shorteneted URL if a vanity one is not provided.
-    var dbResult = await db.InsertUrlAsync(UrlObject.FullUrl, UrlObject.ShortenedUrl);
+    dbResult = await db.InsertUrlAsync(UrlObject.FullUrl, UrlObject.ShortenedUrl);
     while (dbResult.url != UrlObject.FullUrl)
     {
-        UrlObject.RegenerateShortenedUrl(); // also randomizes vanity URL, this is expected behavior for now
+        if (!string.IsNullOrWhiteSpace(vanity))
+        {
+            return Results.BadRequest("Vanity URL already exists. Please choose a different one.");
+        }
+        
+        UrlObject.RegenerateShortenedUrl();
         dbResult = await db.InsertUrlAsync(UrlObject.FullUrl, UrlObject.ShortenedUrl);
     }
     return Results.Ok(UrlObject.ShortenedUrl);
