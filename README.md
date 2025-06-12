@@ -1,20 +1,18 @@
 ## ShorterThanAverage - The Best URL Shortener in Town*!
 
+<img src="https://i.imgur.com/RvHLUZV.png" width="250" height="350">
+
 #### Usage:
-POST endpoint (For shortening):
+POST endpoint (For shortening):\
 /api/shorten
 
-Parameters:
-request (required) (string) - a valid URL that the user would like shortened
+Parameters:\
+request (required) (string) - a valid URL that the user would like shortened\
 vanity (string) - vanity short code that the user would like for their URL, if not provided, a generated short code will be provided.
 
-GET endpoint (for redirecting):
-/{short_code}
+GET endpoint (for redirecting):\
+/{short_code}\
 short_code (string) the short code that the user generated in the POST endpoint.
-
-If the short code is already in use, it will be re-encoded until its not used
-if the vanity URL requested is already in use, the user will get a bad request response
-if the requested URL is already shortened, the same short code will be always returned
 
 ---
 
