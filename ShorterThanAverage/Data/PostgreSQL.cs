@@ -41,13 +41,13 @@ public class UrlDatabase
         }
     }
 
-    public async Task<string?> GetFullUrlAsync(string shortUrl)
+    public async Task<string?> GetFullUrlAsync(string shortCode)
     {
         await _connection.OpenAsync();
         try
         {
             using var cmd = new NpgsqlCommand("SELECT \"URL\" FROM shortener.\"shortenerTable\" WHERE \"ShortURL\" = @ShortURL", _connection);
-            cmd.Parameters.AddWithValue("ShortURL", shortUrl);
+            cmd.Parameters.AddWithValue("ShortURL", shortCode);
             var result = await cmd.ExecuteScalarAsync();
             return result as string;
         }
@@ -57,7 +57,7 @@ public class UrlDatabase
         }
     }
 
-    public async Task<(string? url, string? shortUrl)> CheckUrlExistanceAsync(string fullUrl)
+    public async Task<(string? url, string? shortCode)> CheckUrlExistanceAsync(string fullUrl)
     {
         await _connection.OpenAsync();
         try

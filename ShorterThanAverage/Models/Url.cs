@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Base62;
 
-public class URL
+public class Url
 {
     public string FullUrl { get; set; }
     private string _shortenedUrl;
@@ -13,7 +13,7 @@ public class URL
         set => _shortenedUrl = string.IsNullOrWhiteSpace(value) ? GenerateShortenedUrl(FullUrl) : value;
     }
 
-    public URL(string fullUrl, string? shortenedUrl = null)
+    public Url(string fullUrl, string? shortenedUrl = null)
     {
         FullUrl = fullUrl;
         ShortenedUrl = shortenedUrl;
