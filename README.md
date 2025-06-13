@@ -1,6 +1,6 @@
 ## ShorterThanAverage - The Best URL Shortener in Town*!
 
-<img src="https://i.imgur.com/93JQLEi.png" width="715" height="369">
+<img src="https://i.postimg.cc/mgQjcG4h/Screenshot-2025-06-13-at-18-21-50.png" width="735" height="460">
 
 #### Usage:
 POST endpoint (For shortening):\
