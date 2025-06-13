@@ -1,7 +1,6 @@
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
@@ -18,18 +17,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
+app.UseDefaultFiles();
+app.UseStaticFiles();
 // shortening endpoint
-app.MapPost("/api/shorten/", async (HttpContext context, string request, string? vanity, UrlShortenerService shortenerService) =>
+app.MapPost("/api/shorten/", async (HttpContext context, ShortenRequest request, UrlShortenerService shortenerService) =>
 {
     try
     {
-        var shortCode = await shortenerService.ShortenUrlAsync(request, vanity);
+        var shortCode = await shortenerService.ShortenUrlAsync(request.Url, request.Vanity);
         var host = context.Request.Host.Value;
         var scheme = context.Request.Scheme;
         var shortUrl = $"{scheme}://{host}/{shortCode}";
-        return Results.Ok(shortUrl);
+        return Results.Text(shortUrl, "text/plain");
     }
     catch (ArgumentException ex)
     {

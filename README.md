@@ -1,14 +1,18 @@
 ## ShorterThanAverage - The Best URL Shortener in Town*!
 
-<img src="https://i.imgur.com/RvHLUZV.png" width="250" height="350">
-
+<img src="https://i.imgur.com/93JQLEi.png" width="715" height="369">\
 #### Usage:
 POST endpoint (For shortening):\
-/api/shorten
+/api/shorten/
 
-Parameters:\
-request (required) (string) - a valid URL that the user would like shortened\
-vanity (string) - vanity short code that the user would like for their URL, if not provided, a generated short code will be provided.
+```json
+Request body: application/json
+{
+	"url": "string",
+	"vanity": "string"
+}
+```
+*`vanity` is the short code that the user would like for their URL. If not provided, a generated short code will be used.*
 
 GET endpoint (for redirecting):\
 /{short_code}\
@@ -20,8 +24,8 @@ How to set up and run the project:
 * Download and open the project
 * Set up a PostgreSQL Server
 * Your table should have the following fields
-* URL (text) - for the full URL
-* ShortURL (text) (with a UNIQUE constraint)- for the short code
+	* URL (text) - for the full URL
+	* ShortURL (text) (with a UNIQUE constraint)- for the short code
 * Edit PostgreDB in appsettings.json according to your PostgreSQL setup
 * Make sure you have the following packages:
 	* Base62-Net

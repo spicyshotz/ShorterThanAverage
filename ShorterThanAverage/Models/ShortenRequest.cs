@@ -1,0 +1,1 @@
+public record ShortenRequest(string Url, string? Vanity);

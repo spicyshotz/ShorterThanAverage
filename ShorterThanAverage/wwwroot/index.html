@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShorterThanAverage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #282828;
+            color: #FFDA2A;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .ruler {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 13vh;
+        z-index: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: none;
+        }
+        .ruler-img {
+            width: 100vh;
+            height: auto;
+            object-fit: cover;
+            object-position: center;
+        }
+        .ruler.left .ruler-img {
+            transform: rotate(-90deg);
+        }
+        .ruler.right .ruler-img {
+            transform: rotate(90deg);
+        }
+        .ruler.left {
+            left: 0;
+        }
+        .ruler.right {
+            right: 0;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            margin-top: 60px;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .logo {
+            background: #FFDA2A;
+            border-radius: 20px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            overflow: hidden;
+        }
+        .logo img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            min-width: 60px;
+            min-height: 60px;
+            aspect-ratio: 1 / 1;
+        }
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: #FFDA2A;
+            color: #232323;
+            border-radius: 20px;
+            padding: 10px 30px;
+        }
+        .form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 30px;
+            margin-top: 20vh;
+        }
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+        .input, .vanity-input {
+            flex: 1;
+            padding: 18px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 20px;
+            background: #FFDA2A;
+            color: #232323;
+            font-weight: bold;
+            outline: none;
+        }
+        .submit-btn {
+            background: #232323;
+            border-radius: 20px;
+            padding: 0 18px;
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.5s;
+            border: 7px solid #ffd600;
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            min-height: 60px;
+            aspect-ratio: 1 / 1;
+        }
+        .submit-btn:hover {
+            background: #756414;
+        }
+        .result {
+            margin-top: 10px;
+            font-size: 1.3rem;
+            color: #FFDA2A;
+            background: none;
+            text-align: center;
+        }
+        .short-url {
+            font-weight: bold;
+            font-size: 1.3rem;
+            background: none;
+            color: #FFDA2A;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .copy-btn {
+            margin-left: 10px;
+            background: none;
+            border: none;
+            color: #FFDA2A;
+            font-size: 1.2rem;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="ruler left">
+        <img src="images/ruler.JPEG" alt="Left Ruler" class="ruler-img">
+    </div>
+    <div class="ruler right">
+        <img src="images/ruler.JPEG" alt="Right Ruler" class="ruler-img">
+    </div>
+    <div class="container">
+        <div class="logo-row">
+            <div class="logo">
+                <img src="images/ShorterThanAverageIcon.png" alt="Logo">
+            </div>
+            <div class="title">ShorterThanAverage</div>
+        </div>
+        <form class="form" id="shorten-form" autocomplete="off">
+            <input class="input" id="url-input" type="url" placeholder="https://wikipedia.com/" required>
+            <div class="input-row">
+                <input class="vanity-input" id="vanity-input" type="text" placeholder="Vanity Short URL (optional)" maxlength="32">
+                <button class="submit-btn" type="submit" title="Shorten">
+                    🤏
+                </button>
+            </div>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        const form = document.getElementById('shorten-form');
+        const urlInput = document.getElementById('url-input');
+        const vanityInput = document.getElementById('vanity-input');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            resultDiv.textContent = "Shortening...";
+            let url = urlInput.value.trim();
+            let vanity = vanityInput.value.trim();
+
+            let endpoint = '/api/shorten/';
+            let payload = { url: url };
+            if (vanity) payload.vanity = vanity;
+
+            try {
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!res.ok) {
+                    const err = await res.text();
+                    resultDiv.textContent = err;
+                    return;
+                }
+                const shortUrl = await res.text();
+                resultDiv.innerHTML = `<span class="short-url" onclick="window.open('${shortUrl}', '_blank')">${shortUrl}</span>
+                    <button class="copy-btn" title="Copy to clipboard" onclick="navigator.clipboard.writeText('${shortUrl}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="22" height="22"><path fill="#FFD43B" d="M208 0L332.1 0c12.7 0 24.9 5.1 33.9 14.1l67.9 67.9c9 9 14.1 21.2 14.1 33.9L448 336c0 26.5-21.5 48-48 48l-192 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48zM48 128l80 0 0 64-64 0 0 256 192 0 0-32 64 0 0 48c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 176c0-26.5 21.5-48 48-48z"/></svg>
+                    </button>`;
+            } catch (err) {
+                resultDiv.textContent = "Network error.";
+            }
+        });
+    </script>
+</body>
+</html>
