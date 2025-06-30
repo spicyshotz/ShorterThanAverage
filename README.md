@@ -35,7 +35,7 @@ How to set up and run the project:
 	* Npgsql.EntityFrameworkCore.PostgreSQL
 	* Swashbuckle.AspNetCore
 * Project made with .Net 9.0
-* Run Program.cs
+* Run Program.cs (I ran it with dotnet watch run)
 
 Swagger UI is available at /swagger/index.html
 
