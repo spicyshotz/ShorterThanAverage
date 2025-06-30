@@ -27,6 +27,16 @@ How to set up and run the project:
 * Your table should have the following fields
 	* URL (text) - for the full URL
 	* ShortURL (text) (with a UNIQUE constraint)- for the short code
+ 
+My table looks like this:
+```sql
+CREATE TABLE IF NOT EXISTS shortener."shortenerTable"
+(
+    "URL" text COLLATE pg_catalog."default",
+    "ShortURL" text COLLATE pg_catalog."default",
+    CONSTRAINT shorturl_unique UNIQUE ("ShortURL")
+)
+```
 * Edit PostgreDB in appsettings.json according to your PostgreSQL setup
 * Make sure you have the following packages:
 	* Base62-Net
@@ -34,6 +44,11 @@ How to set up and run the project:
 	* Npgsql
 	* Npgsql.EntityFrameworkCore.PostgreSQL
 	* Swashbuckle.AspNetCore
+ 	* coverlet.collecto
+  	* Microsoft.NET.Test.Sdk
+  	* Moq
+  	* xunit
+  	* xunit.runner.visualstudio
 * Project made with .Net 9.0
 * Run Program.cs (I ran it with dotnet watch run)
 
