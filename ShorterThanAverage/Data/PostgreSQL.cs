@@ -1,7 +1,7 @@
 using Npgsql;
 using System.Threading.Tasks;
 
-public class UrlDatabase
+public class UrlDatabase : IUrlDatabase
 {
     private readonly NpgsqlConnection _connection;
 

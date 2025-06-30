@@ -7,7 +7,7 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("PostgreDB");
 builder.Services.AddScoped((provider) => new NpgsqlConnection(connectionString));
 builder.Services.AddScoped<UrlShortenerService>();
-builder.Services.AddScoped<UrlDatabase>();
+builder.Services.AddScoped<IUrlDatabase, UrlDatabase>();
 
 var app = builder.Build();
 
@@ -19,6 +19,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
 // shortening endpoint
 app.MapPost("/api/shorten/", async (HttpContext context, ShortenRequest request, UrlShortenerService shortenerService) =>
 {

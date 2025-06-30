@@ -2,9 +2,9 @@ using System.Text.RegularExpressions;
 
 public class UrlShortenerService
 {
-    private readonly UrlDatabase _db;
+    private readonly IUrlDatabase _db;
 
-    public UrlShortenerService(UrlDatabase db)
+    public UrlShortenerService(IUrlDatabase db)
     {
         _db = db;
     }
